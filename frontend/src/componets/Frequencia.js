@@ -4,9 +4,9 @@ import "../global.css"
 
 import api from "../services/api";
 
-export default function Rent() {
+export default function Frequencia() {
 
-  const [rent, setRent] = useState([]);
+  const [frequencia, setFrequencia] = useState([]);
   const [aluno_id, setAluno_id] = useState("");
   const [book_id, setBook_id] = useState("");
 
@@ -15,18 +15,18 @@ export default function Rent() {
 
   useEffect(
     () => {
-       // requisição para pegar os livros e setar no usestage rent.
-      api.get("rent").then((response) => {
-        setRent(response.data);
+       // requisição para pegar os livros e setar no usestage frequencia.
+      api.get("frequencia").then((response) => {
+        setFrequencia(response.data);
       });
-    }, [rent]);
+    }, [frequencia]);
 
   async function handleAluno(e) {
     e.preventDefault();
     const data = { aluno_id, book_id }
     try {
            // requisição para passar os alugueis e seus valores.
-      await api.post('rent', data)
+      await api.post('frequencia', data)
       alert(`Aluguel cadastrado com sucesso`)
       clean()
 
@@ -50,7 +50,7 @@ export default function Rent() {
 
       <div className="brand-logo center ">
         <div>
-          <h4 ><span className="  amber lighten-5 yellow accent-1 z-depth-3">Cadastro de aluguel</span></h4>
+          <h4 ><span className="  amber lighten-5 yellow accent-1 z-depth-3">Registro de frequencia</span></h4>
         </div>
       </div>
       <div className="container">
@@ -65,9 +65,9 @@ export default function Rent() {
             value={aluno_id}
             onChange={e => setAluno_id(e.target.value)}
           />
-          <label>Livro</label>
+          <label>Data</label>
           <input
-            type="text"
+            type="date"
             placeholder=""
             value={book_id}
             onChange={e => setBook_id(e.target.value)}
@@ -79,12 +79,12 @@ export default function Rent() {
         <table>
 
           <thead >
-            {rent.map((rents) => (
-              <tr key={rents.id}>
+            {frequencia.map((frequencias) => (
+              <tr key={frequencias.id}>
 
-                <th>Aluno: {rents.aluno_id}</th>
-                <th>Livro: {rents.book_id}</th>
-                <th>Data do alugel: {rents.rentloc}</th>
+                <th>Aluno: {frequencias.aluno_id}</th>
+                <th>Livro: {frequencias.book_id}</th>
+                <th>Data do alugel: {frequencias.frequencialoc}</th>
 
                 <td>
                   <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
