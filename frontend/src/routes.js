@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Book from "./componets/Book";
+import Aula from "./componets/Aula";
 
 import Dash from "./componets/Dash";
 import Home from "./componets/Home";
@@ -15,8 +15,8 @@ export default function  Routes() {
      
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/book" component={Book} />
-        <Route path="/aluno" component={Aluno} />
+        <Route path="/aula" component={Aula} />
+        <Route path="/client" component={Aluno} />
         <Route path="/frequencia" component={Frequencia} />
         <Route path="/dash" component={Dash} />
       </Switch>

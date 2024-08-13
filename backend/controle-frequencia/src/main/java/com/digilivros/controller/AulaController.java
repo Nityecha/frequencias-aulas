@@ -12,43 +12,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.digilivros.models.Book;
-import com.digilivros.models.Book;
-import com.digilivros.repository.BookRepository;
+import com.digilivros.models.Aula;
+import com.digilivros.repository.AulaRepository;
 
 @RestController
 @RequestMapping(value = "/api")
 
-public class BookController {
+public class AulaController {
 	
 	@Autowired
-	BookRepository bookrepository;
+    AulaRepository aulaRepository;
 	
 
 	@GetMapping("book")
-	public List<Book> ListBook() {
-		return bookrepository.findAll();
+	public List<Aula> ListBook() {
+		return aulaRepository.findAll();
 	}
 
 	@GetMapping("/book/{id}")
-	public Book ListBookId(@PathVariable(value = "id") long id) {
-		return bookrepository.findById(id);
+	public Aula ListBookId(@PathVariable(value = "id") long id) {
+		return aulaRepository.findById(id);
 	}
 	
 	
-	@PostMapping("/book")
-	public Book  saveBook(@RequestBody Book book) {
-		return bookrepository.save(book);
+	@PostMapping("/aula")
+	public Aula saveBook(@RequestBody Aula aula) {
+		return aulaRepository.save(aula);
 	}
 
-	@DeleteMapping("/book")
-	public void  deletBook(@RequestBody Book book) {
-		bookrepository.delete(book);
+	@DeleteMapping("/aula")
+	public void  deletBook(@RequestBody Aula aula) {
+		aulaRepository.delete(aula);
 	}
 	
-	@PutMapping("/book")
-	public Book  editBook(@RequestBody Book book) {
-		return bookrepository.save(book); 
+	@PutMapping("/aula")
+	public Aula editBook(@RequestBody Aula aula) {
+		return aulaRepository.save(aula);
 	}
 
 }

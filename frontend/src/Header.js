@@ -14,9 +14,9 @@ export default function Header() {
 
           <ul id="nav-mobile" className="right hide-on-med-and-down ">
 
-            <li><Link to="/aluno">Aluno</Link></li>
-            <li><Link to="/book">Livros</Link></li>
-            <li><Link to="/rent">Aluguel</Link></li>
+            <li><Link to="/aluno">Alunos</Link></li>
+            <li><Link to="/aula">Aulas</Link></li>
+            <li><Link to="/frequencia">Frequencias</Link></li>
 
           </ul>
 

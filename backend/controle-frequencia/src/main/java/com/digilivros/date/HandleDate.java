@@ -5,22 +5,16 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-import com.digilivros.models.Rent;
+import com.digilivros.models.Frequencia;
 
 public class HandleDate {
 	
 	@Autowired
-	Rent rent;
-	
-	 LocalDate lt   = LocalDate.now(); 
-	
+	Frequencia frequencia;
+
 	public void insertCurrentDate ( ) {
-		
-		rent.setRentloc(lt);
-		
-		
-		
-		
+		LocalDate lt   = LocalDate.now();
+		frequencia.setFrequencialoc(lt);
 	}
 
 }

@@ -8,7 +8,7 @@ export default function Aluno() {
 
 
 
-  const [aluno, setAluno] = useState([]);
+  const [client, setAluno] = useState([]);
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [tel, setTel] = useState("");
@@ -18,11 +18,11 @@ export default function Aluno() {
   useEffect(
     () => {
       
-  // requisição para pegar os alunos e setar no usestage aluno.
-      api.get("aluno").then((response) => {
+  // requisição para pegar os clients e setar no usestage client.
+      api.get("client").then((response) => {
         setAluno(response.data);
       });
-    }, [aluno]);
+    }, [client]);
 
 
   async function handleAluno(e) {
@@ -30,8 +30,8 @@ export default function Aluno() {
     const data = { name, cpf, tel }
     try {
       
-     // requisição para passar os alunos e seus valores.
-      await api.post('aluno', data)
+     // requisição para passar os clients e seus valores.
+      await api.post('client', data)
       alert(`Aluno ${name} cadastrado com sucesso`)
       clean()
 
@@ -92,12 +92,12 @@ export default function Aluno() {
         <table>
 
           <thead >
-            {aluno.map((aluno) => (
-              <tr key={aluno.id}>
+            {client.map((client) => (
+              <tr key={client.id}>
 
-                <th>Nome: {aluno.name}</th>
-                <th>CPF: {aluno.cpf}</th>
-                <th>Telefone: {aluno.tel}</th>
+                <th>Nome: {client.name}</th>
+                <th>CPF: {client.cpf}</th>
+                <th>Telefone: {client.tel}</th>
                 <td>
                   <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
                   <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>

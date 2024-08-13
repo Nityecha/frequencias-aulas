@@ -4,10 +4,10 @@ import "../global.css"
 
 import api from "../services/api";
 
-export default function Frequencia() {
+export default function Rent() {
 
-  const [frequencia, setFrequencia] = useState([]);
-  const [aluno_id, setAluno_id] = useState("");
+  const [frequencia, setRent] = useState([]);
+  const [client_id, setAluno_id] = useState("");
   const [book_id, setBook_id] = useState("");
 
 
@@ -17,17 +17,17 @@ export default function Frequencia() {
     () => {
        // requisição para pegar os livros e setar no usestage frequencia.
       api.get("frequencia").then((response) => {
-        setFrequencia(response.data);
+        setRent(response.data);
       });
     }, [frequencia]);
 
   async function handleAluno(e) {
     e.preventDefault();
-    const data = { aluno_id, book_id }
+    const data = { client_id, book_id }
     try {
            // requisição para passar os alugueis e seus valores.
       await api.post('frequencia', data)
-      alert(`Aluguel cadastrado com sucesso`)
+      alert(`Frequencia cadastrada com sucesso`)
       clean()
 
 
@@ -62,7 +62,7 @@ export default function Frequencia() {
           <label>Aluno</label>
           <input
             placeholder=""
-            value={aluno_id}
+            value={client_id}
             onChange={e => setAluno_id(e.target.value)}
           />
           <label>Data</label>
@@ -82,9 +82,9 @@ export default function Frequencia() {
             {frequencia.map((frequencias) => (
               <tr key={frequencias.id}>
 
-                <th>Aluno: {frequencias.aluno_id}</th>
-                <th>Livro: {frequencias.book_id}</th>
-                <th>Data do alugel: {frequencias.frequencialoc}</th>
+                <th>Aluno: {frequencias.client_id}</th>
+                <th>Aula: {frequencias.book_id}</th>
+                <th>Data frequencia: {frequencias.frequencialoc}</th>
 
                 <td>
                   <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>

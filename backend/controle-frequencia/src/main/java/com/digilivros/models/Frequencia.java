@@ -7,16 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_Rents")
-
-public class Rent implements Serializable {
+public class Frequencia implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +20,7 @@ public class Rent implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private LocalDate rentloc;
+	private LocalDate frequencialoc;
 	@OneToOne
 	@JoinColumn
 
@@ -32,17 +28,17 @@ public class Rent implements Serializable {
 	@OneToOne
 	@JoinColumn
 
-	private Book book;
+	private Aula book;
 
-	public Book getBook() {
+	public Aula getBook() {
 		return book;
 	}
 
-	public void setBook(Book book) {
+	public void setBook(Aula book) {
 		this.book = book;
 	}
 
-	public void setClient(Aluno aluno) {
+	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
 
@@ -54,12 +50,12 @@ public class Rent implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDate getRentloc() {
-		return rentloc;
+	public LocalDate getFrequencialoc() {
+		return frequencialoc;
 	}
 
-	public void setRentloc(LocalDate rentloc) {
-		this.rentloc = rentloc;
+	public void setFrequencialoc(LocalDate frequencialoc) {
+		this.frequencialoc = frequencialoc;
 	}
 
 	public Aluno getClient() {

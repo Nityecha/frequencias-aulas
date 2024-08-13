@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_Aluno")
 public class Aluno implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +27,7 @@ public class Aluno implements Serializable {
 
 	@ManyToOne
 	@JoinColumn
-	private Rent rent;
+	private Frequencia frequencia;
 
 	public long getId() {
 		return id;
