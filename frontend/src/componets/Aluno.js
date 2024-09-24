@@ -5,37 +5,37 @@ import "../global.css"
 import api from "../services/api";
 
 export default function Aluno() {
-
-
-
-  const [client, setAluno] = useState([]);
+  const [aluno, setAluno] = useState([]);
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [tel, setTel] = useState("");
 
-
-
   useEffect(
     () => {
-      
-  // requisição para pegar os clients e setar no usestage client.
-      api.get("client").then((response) => {
+      getAlunos()
+    }, []);
+
+    async function getAlunos() {
+      try {
+      // requisição para pegar os Alunos e setar no usestage aluno.
+      api.get("aluno").then((response) => {
         setAluno(response.data);
       });
-    }, [client]);
-
+      } catch (err) {
+        alert('Erro ao cadastrar caso, tente novamente.')
+      }
+    }
 
   async function handleAluno(e) {
     e.preventDefault();
     const data = { name, cpf, tel }
     try {
       
-     // requisição para passar os clients e seus valores.
-      await api.post('client', data)
+     // requisição para passar os Alunos e seus valores.
+      await api.post('aluno', data)
       alert(`Aluno ${name} cadastrado com sucesso`)
       clean()
-
-
+      getAlunos()
     } catch (err) {
       alert('Erro ao cadastrar caso, tente novamente.')
     }
@@ -48,13 +48,22 @@ export default function Aluno() {
     setTel("")
   }
 
+  // Função para deletar o aluno
+async function handleDeleteAluno(id) {
+  try {
+    await api.delete(`aluno/${id}`);
+    setAluno(aluno.filter(a => a.id !== id)); // Remove o aluno do estado após a deleção
+    alert("Aluno deletado com sucesso!");
+  } catch (err) {
+    alert("Erro ao deletar aluno, tente novamente.");
+  }
+}
+
 
 
   return (
 
     <div>
-
-
       <div class="brand-logo center ">
         <div>
           <h4 ><span className="  amber lighten-5 yellow accent-1 z-depth-3">Cadastro de Alunos</span></h4>
@@ -92,15 +101,17 @@ export default function Aluno() {
         <table>
 
           <thead >
-            {client.map((client) => (
-              <tr key={client.id}>
+            {aluno.map((aluno) => (
+              <tr key={aluno.id}>
 
-                <th>Nome: {client.name}</th>
-                <th>CPF: {client.cpf}</th>
-                <th>Telefone: {client.tel}</th>
+                <th>Nome: {aluno.name}</th>
+                <th>CPF: {aluno.cpf}</th>
+                <th>Telefone: {aluno.tel}</th>
                 <td>
-                  <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-                  <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
+                    
+                  <button class="waves-effect btn-small red darken-1"
+                  onClick={() => handleDeleteAluno(aluno.id)}
+                  ><i class="material-icons" v>delete_sweep</i></button>
                 </td>
               </tr>
 

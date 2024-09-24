@@ -12,33 +12,55 @@ export default function Aula() {
  
   useEffect(
     () => {
+      getAulas()
+      
+    }, []);
+
+    async function getAulas() {
+      try {
+      // requisição para pegar os Alunos e setar no usestage aluno.
        // requisição para pegar os aulas e setar no usestage aula.
-      api.get("aula").then((response) => {
+       api.get("/aula").then((response) => {
         setAula(response.data);
       });
-    }, [aula]);
-
+      } catch (err) {
+        alert('Erro ao buscar aula, tente novamente.')
+      }
+    }
   
   async function handleAula(e) {
     e.preventDefault();
     const data = { title, description }
     try {
          // requisição para passar os aulas e seus valores.
-      await api.post('aula', data)
-      alert(`Aula de ${title}, cadastrado com sucesso`)
+      await api.post('/aula', data)
+      alert(`Aula ${title}, cadastrado com sucesso`)
       clean()
+      getAulas()
 
     } catch (err) {
-      alert('Erro ao cadastrar livro, tente novamente.')
+      alert('Erro ao cadastrar aula, tente novamente.')
       console.log(err)
     }
   }
+
+  async function handleDeleteAula(id) {
+    try {
+      await api.delete(`/aula/${id}`);
+      setAula(aula.filter(a => a.id !== id)); 
+      alert("Aula deletada com sucesso!");
+    } catch (err) {
+      console.log("")
+    }
+  }
+  
 
   //limpar campos do inputs depois do cadastro
   function clean() {
     setTitle("")
     setDescription("")
   }
+
 
   return (
 
@@ -75,10 +97,11 @@ export default function Aula() {
               <tr key={aulas.id}>
 
                 <th>Materia aula: {aulas.title}</th>
-                <th>Descrição: {aulas.aulas}</th>
+                <th>Descrição: {aulas.description}</th>
                 <td>
-                  <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-                  <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
+                <button class="waves-effect btn-small red darken-1"
+                  onClick={() => handleDeleteAula(aulas.id)}
+                  ><i class="material-icons" v>delete_sweep</i></button>
                 </td>
               </tr>
 

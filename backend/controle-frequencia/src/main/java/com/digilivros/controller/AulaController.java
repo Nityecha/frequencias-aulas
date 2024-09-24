@@ -1,8 +1,11 @@
 package com.digilivros.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.digilivros.models.Aluno;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,34 +22,30 @@ import com.digilivros.repository.AulaRepository;
 @RequestMapping(value = "/api")
 
 public class AulaController {
-	
 	@Autowired
     AulaRepository aulaRepository;
-	
 
-	@GetMapping("book")
-	public List<Aula> ListBook() {
+	@GetMapping("/aula")
+	public List<Aula> ListAula() {
 		return aulaRepository.findAll();
 	}
-
-	@GetMapping("/book/{id}")
-	public Aula ListBookId(@PathVariable(value = "id") long id) {
-		return aulaRepository.findById(id);
-	}
-	
-	
 	@PostMapping("/aula")
-	public Aula saveBook(@RequestBody Aula aula) {
+	public Aula saveAula(@RequestBody Aula aula) {
 		return aulaRepository.save(aula);
 	}
+	@DeleteMapping("/aula/{id}")
+	public ResponseEntity<Void> deletarAula(@PathVariable Long id) {
+		Optional<Aula> aula = aulaRepository.findById(id);
 
-	@DeleteMapping("/aula")
-	public void  deletBook(@RequestBody Aula aula) {
-		aulaRepository.delete(aula);
+		if (aula.isPresent()) {
+			aulaRepository.deleteById(id);
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
-	
 	@PutMapping("/aula")
-	public Aula editBook(@RequestBody Aula aula) {
+	public Aula editAula(@RequestBody Aula aula) {
 		return aulaRepository.save(aula);
 	}
 

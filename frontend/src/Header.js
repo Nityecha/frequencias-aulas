@@ -10,7 +10,7 @@ export default function Header() {
       <nav>
         <div className="nav-wrapper blue lighten-2">
 
-          <Link to="/" className="brand-logo "> <i className="material-icons">style</i> Digilivros </Link>
+          <Link to="/" className="brand-logo "> <i className="material-icons">style</i> Controle de frequência</Link>
 
           <ul id="nav-mobile" className="right hide-on-med-and-down ">
 

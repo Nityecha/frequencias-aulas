@@ -1,8 +1,10 @@
 package com.digilivros.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,38 +21,44 @@ import com.digilivros.repository.AlunoRepository;
 @RequestMapping(value = "/api")
 public class AlunoController {
 
-	@Autowired
-		AlunoRepository AlunoRepository;
-	
-	Aluno Aluno = new  Aluno();
+    @Autowired
+    AlunoRepository alunoRepository;
+
+    @GetMapping("/aluno")
+    public List<Aluno> ListAluno() {
+        return alunoRepository.findAll();
+    }
+    @GetMapping("/aluno/{name}")
+    public ResponseEntity<List<Aluno>> buscarAlunoPorNome(@PathVariable String name) {
+        List<Aluno> alunos = alunoRepository.findByNameContainingIgnoreCase(name);
+        if (alunos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(alunos);
+        }
+    }
+
+    @PostMapping("/aluno")
+    public Aluno saveAluno(@RequestBody Aluno Aluno) {
+        return alunoRepository.save(Aluno);
+    }
 
 
-	@GetMapping("Aluno")
-	public List<Aluno> ListAluno() {
-		return AlunoRepository.findAll();
-	}
+    @DeleteMapping("/aluno/{id}")
+    public ResponseEntity<Void> deletarAluno(@PathVariable Long id) {
+        Optional<Aluno> aluno = alunoRepository.findById(id);
 
-	@GetMapping("/Aluno/{id}")
-	public Aluno ListAlunoId(@PathVariable(value = "id") long id) {
-		return AlunoRepository.findById(id);
-	}
-	
-	
-	@PostMapping("/Aluno")
-	public Aluno  saveAluno(@RequestBody Aluno Aluno) {
-		
-	
-		return AlunoRepository.save(Aluno);
-	}
+        if (aluno.isPresent()) {
+            alunoRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-	
-	@DeleteMapping("/Aluno")
-	public void  deletAluno(@RequestBody Aluno Aluno) {
-		 AlunoRepository.delete(Aluno);
-	}
-	
-	@PutMapping("/Aluno")
-	public Aluno  editAluno(@RequestBody Aluno Aluno) {
-		return AlunoRepository.save(Aluno); 
-	}
+
+    @PutMapping("/aluno")
+    public Aluno editAluno(@RequestBody Aluno Aluno) {
+        return alunoRepository.save(Aluno);
+    }
 }

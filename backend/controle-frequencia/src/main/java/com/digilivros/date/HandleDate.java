@@ -11,10 +11,4 @@ public class HandleDate {
 	
 	@Autowired
 	Frequencia frequencia;
-
-	public void insertCurrentDate ( ) {
-		LocalDate lt   = LocalDate.now();
-		frequencia.setFrequencialoc(lt);
-	}
-
 }

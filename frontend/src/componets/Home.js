@@ -15,7 +15,7 @@ export default  function Header() {
    
   </div>
   
-  <h1>Bem vindo, ao Digilivros  <i className="material-icons Large">style</i>  </h1>
+  <h1>Bem vindo, ao Controle de frequência <i className="material-icons Large">style</i>  </h1>
 
  
   </div>

@@ -3,43 +3,35 @@ package com.digilivros.models;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 public class Frequencia implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-
-	private LocalDate frequencialoc;
-	@OneToOne
-	@JoinColumn
-
-	private Aluno aluno;
-	@OneToOne
-	@JoinColumn
-
-	private Aula book;
-
-	public Aula getBook() {
-		return book;
+	public LocalDate getDataAula() {
+		return dataAula;
 	}
 
-	public void setBook(Aula book) {
-		this.book = book;
+	public void setDataAula(LocalDate dataAula) {
+		this.dataAula = dataAula;
 	}
 
-	public void setAluno(Aluno aluno) {
+	public int getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(int aluno) {
 		this.aluno = aluno;
+	}
+
+	public int getAula() {
+		return aula;
+	}
+
+	public void setAula(int aula) {
+		this.aula = aula;
 	}
 
 	public long getId() {
@@ -50,16 +42,16 @@ public class Frequencia implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDate getFrequencialoc() {
-		return frequencialoc;
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
-	public void setFrequencialoc(LocalDate frequencialoc) {
-		this.frequencialoc = frequencialoc;
-	}
+	@Column(name = "frequencialoc")
+	LocalDate dataAula;
 
-	public Aluno getClient() {
-		return aluno;
-	}
+	@Column(name = "aluno_id")
+	int aluno;
 
+	@Column(name = "aula_id")
+	int aula;
 }
